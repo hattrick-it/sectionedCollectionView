@@ -9,12 +9,16 @@
 import Foundation
 import UIKit
 
-class HeaderViewCell: UICollectionViewCell {
+class HeaderViewCell: ItemCollectionViewCell {
     
-    static let nibName = "HeaderViewCell"
-    static let cellReuseIdentifier = "HeaderViewCell"
+    override class var nibName: String {
+        return "HeaderViewCell"
+    }
+    override class var cellReuseIdentifier: String {
+        return "HeaderViewCell"
+    }
     
-    private let textColor = UIColor(red: 151/255, green: 164/255, blue: 180/255, alpha: 1)
+    private let textColor: UIColor = UIColor(red: 151/255, green: 164/255, blue: 180/255, alpha: 1)
     
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -24,8 +28,10 @@ class HeaderViewCell: UICollectionViewCell {
         setupStyle()
     }
     
-    func configure(withName name: String) {
-        nameLabel.text = name
+    override func configure(withValue value: Any) {
+        if let section = value as? SectionOfCustomData {
+            nameLabel.text = section.header
+        }
     }
     
     private func setupStyle() {

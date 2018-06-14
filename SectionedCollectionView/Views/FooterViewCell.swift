@@ -9,9 +9,13 @@
 import Foundation
 import UIKit
 
-class FooterViewCell: UICollectionViewCell {
+class FooterViewCell: ItemCollectionViewCell {
     
-    static let nibName = "FooterViewCell"
-    static let cellReuseIdentifier = "FooterViewCell"
+    override class var nibName: String {
+        return "FooterViewCell"
+    }
+    override class var cellReuseIdentifier: String {
+        return "FooterViewCell"
+    }
     
 }

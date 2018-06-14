@@ -11,16 +11,58 @@ import UIKit
 import RxDataSources
 import RxSwift
 
+public struct SectionedCollectionViewSettings {
+    
+    public struct ViewCells {
+        public var itemCollectionViewCellNibName: String = ItemCollectionViewCell.nibName
+        public var itemCollectionViewCellReuseIdentifier: String = ItemCollectionViewCell.cellReuseIdentifier
+        public var headerViewCellNibName: String = ItemCollectionViewCell.nibName
+        public var headerViewCellReuseIdentifier: String = ItemCollectionViewCell.cellReuseIdentifier
+        public var footerViewCellNibName: String = ItemCollectionViewCell.nibName
+        public var footerViewCellReuseIdentifier: String = ItemCollectionViewCell.cellReuseIdentifier
+    }
+    
+    public struct Style {
+        public var sectionInset: UIEdgeInsets = UIEdgeInsets(top: 2, left: 12, bottom: 10, right: 12)
+        public var backgroundColor: UIColor = UIColor(red: 239/255, green: 241/255, blue: 247/255, alpha: 1)
+    }
+    
+    public struct Data {
+        public var selectedLimit: Int?
+    }
+    
+    public struct HeaderStyle {
+        public var headerReferenceHeight: CGFloat = 40
+    }
+    
+    public struct FooterStyle {
+        public var footerReferenceHeight: CGFloat = 2
+    }
+    
+    public struct ItemsSetup {
+        public var itemsForRows: Int = 3
+        public var heightRatio: CGFloat = 0.9
+        public var minimumLineSpacing: CGFloat = 8
+        public var minimumInteritemSpacing: CGFloat = 8
+    }
+    
+    public var viewCells = ViewCells()
+    public var style = Style()
+    public var data = Data()
+    public var headerStyle = HeaderStyle()
+    public var footerStyle = FooterStyle()
+    public var itemsSetup = ItemsSetup()
+    
+}
+
 class SectionedCollectionView: UIView {
  
-    private let background = UIColor(red: 239/255, green: 241/255, blue: 247/255, alpha: 1)
+    public var settings = SectionedCollectionViewSettings()
     
     var collectionView: UICollectionView!
     var dataSource: RxCollectionViewSectionedReloadDataSource<SectionOfCustomData>!
     
     let disposeBag = DisposeBag()
-    
-    var selectedLimit: Int?
     
     // MARK: - Outputs
     
@@ -59,21 +101,21 @@ class SectionedCollectionView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.setupView()
         self.setupCollectionView()
+        self.setupView()
         self.setupBindings()
     }
     
-    fileprivate func setupView(){
-        backgroundColor = background
-    }
-    
-    fileprivate func setupCollectionView(){
-        self.addCollectionView()
+    func setupView() {
+        backgroundColor = settings.style.backgroundColor
         self.setupCollectionViewLayout()
         self.registerHeaderCell()
         self.registerFooterCell()
         self.registerCollectionViewCell()
+    }
+    
+    fileprivate func setupCollectionView(){
+        self.addCollectionView()
         self.setupDataSource()
     }
     
@@ -95,49 +137,51 @@ class SectionedCollectionView: UIView {
         let collectionViewFlowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         
         // Setup Header & Footer Size
-        collectionViewFlowLayout.headerReferenceSize = CGSize(width: collectionView.frame.width, height: 40)
-        collectionViewFlowLayout.footerReferenceSize = CGSize(width: collectionView.frame.width, height: 2)
+        collectionViewFlowLayout.headerReferenceSize = CGSize(width: collectionView.frame.width, height: settings.headerStyle.headerReferenceHeight)
+        collectionViewFlowLayout.footerReferenceSize = CGSize(width: collectionView.frame.width, height: settings.footerStyle.footerReferenceHeight)
         
         // Setup Cell Size
-        collectionViewFlowLayout.itemSize = CGSize(width: ((collectionView.frame.width - 40) / 3), height: ((collectionView.frame.width - 40) / 3) * 0.9)
+        let width = (collectionView.frame.width - (settings.style.sectionInset.left + settings.style.sectionInset.right + (CGFloat(settings.itemsSetup.itemsForRows - 1) * settings.itemsSetup.minimumInteritemSpacing))) / CGFloat(settings.itemsSetup.itemsForRows)
+        collectionViewFlowLayout.itemSize = CGSize(width: width, height: width * settings.itemsSetup.heightRatio)
         
         // Setup Minimun Spaces
-        collectionViewFlowLayout.minimumLineSpacing = 8
-        collectionViewFlowLayout.minimumInteritemSpacing = 8
+        collectionViewFlowLayout.minimumLineSpacing = settings.itemsSetup.minimumLineSpacing
+        collectionViewFlowLayout.minimumInteritemSpacing = settings.itemsSetup.minimumInteritemSpacing
         
         // Setup Edges
-        collectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 2, left: 12, bottom: 10, right: 12)
+        collectionViewFlowLayout.sectionInset = settings.style.sectionInset
     }
     
     fileprivate func registerHeaderCell() {
-        let nib = UINib(nibName: HeaderViewCell.nibName, bundle: nil)
-        collectionView.register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HeaderViewCell.cellReuseIdentifier)
+        let nib = UINib(nibName: self.settings.viewCells.headerViewCellNibName, bundle: nil)
+        collectionView.register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: self.settings.viewCells.headerViewCellReuseIdentifier)
     }
     
     fileprivate func registerFooterCell() {
-        let nib = UINib(nibName: FooterViewCell.nibName, bundle: nil)
-        collectionView.register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: FooterViewCell.cellReuseIdentifier)
+        let nib = UINib(nibName: self.settings.viewCells.footerViewCellNibName, bundle: nil)
+        collectionView.register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: self.settings.viewCells.footerViewCellReuseIdentifier)
     }
     
     fileprivate func registerCollectionViewCell() {
-        let nib = UINib(nibName: ItemCollectionViewCell.nibName, bundle: nil)
-        collectionView.register(nib, forCellWithReuseIdentifier: ItemCollectionViewCell.cellReuseIdentifier)
+        let nib = UINib(nibName: self.settings.viewCells.itemCollectionViewCellNibName, bundle: nil)
+        collectionView.register(nib, forCellWithReuseIdentifier: self.settings.viewCells.itemCollectionViewCellReuseIdentifier)
     }
     
     fileprivate func setupDataSource() {
         self.dataSource = RxCollectionViewSectionedReloadDataSource<SectionOfCustomData>(configureCell: { (dataSource, collectionView, indexPath, item) in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.cellReuseIdentifier, for: indexPath) as! ItemCollectionViewCell
-            cell.configure(with: item.name, selected: item.selected)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.settings.viewCells.itemCollectionViewCellReuseIdentifier, for: indexPath) as! ItemCollectionViewCell
+            cell.configure(withValue: item)
             return cell
         })
         
         self.dataSource.configureSupplementaryView = {(dataSource, collectionView, kind, indexPath) -> UICollectionReusableView in
             if (kind == UICollectionElementKindSectionHeader) {
-                let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HeaderViewCell.cellReuseIdentifier, for: indexPath) as! HeaderViewCell
-                header.configure(withName: dataSource[indexPath.section].header)
+                let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: self.settings.viewCells.headerViewCellReuseIdentifier, for: indexPath) as! ItemCollectionViewCell
+                header.configure(withValue: dataSource[indexPath.section])
                 return header
             } else {
-                let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: FooterViewCell.cellReuseIdentifier, for: indexPath) as! FooterViewCell
+                let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: self.settings.viewCells.footerViewCellReuseIdentifier, for: indexPath) as! ItemCollectionViewCell
+                footer.configure(withValue: dataSource[indexPath.section])
                 return footer
             }
         }
@@ -158,7 +202,7 @@ class SectionedCollectionView: UIView {
                     return sections.selectedItems().items
                 }).flatMap({ $0 }).count
                 
-                if (self.sections.value[indexPath.section].items[indexPath.row].selected || (self.selectedLimit != nil && selectedItemsCount < self.selectedLimit!)) {
+                if (self.sections.value[indexPath.section].items[indexPath.row].selected || self.settings.data.selectedLimit == nil || selectedItemsCount < self.settings.data.selectedLimit!) {
                     self.sections.value[indexPath.section].items[indexPath.row].selected = !self.sections.value[indexPath.section].items[indexPath.row].selected
                 } else {
                     self._limitReached.asObserver().onNext(())
@@ -212,6 +256,7 @@ class SectionedCollectionView: UIView {
     }
     
     var minimumLineSpacing: CGFloat {
+        
         set {
             let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
             collectionViewFlowLayout?.minimumLineSpacing = newValue
