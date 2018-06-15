@@ -8,8 +8,11 @@
 
 import Foundation
 import UIKit
-import RxDataSources
-import RxSwift
+
+protocol SectionedCollectionViewDelegate {
+    func selectedItems(selected: [CustomData])
+    func limitReached()
+}
 
 public struct SectionedCollectionViewSettings {
     
@@ -60,34 +63,10 @@ class SectionedCollectionView: UIView {
     public var settings = SectionedCollectionViewSettings()
     
     var collectionView: UICollectionView!
-    var dataSource: RxCollectionViewSectionedReloadDataSource<SectionOfCustomData>!
+    var delegate: SectionedCollectionViewDelegate?
     
-    let disposeBag = DisposeBag()
-    
-    // MARK: - Outputs
-    
-    var selectedSections: Observable<[CustomData]> {
-        return sections.asObservable().map({ sections -> [CustomData] in
-            return sections.compactMap({ sections -> [CustomData] in
-                return sections.selectedItems().items
-            }).flatMap({ $0 })
-        })
-    }
-    
-    var limitReached: Observable<Void> {
-        return _limitReached.asObservable()
-    }
-    
-    // MARK: - Inputs
-    
-    var setSections: AnyObserver<[SectionOfCustomData]> {
-        return _sections.asObserver()
-    }
-    
-    // MARK: - RxSwift varable
-    private let sections = Variable<[SectionOfCustomData]>([])
-    private let _sections = PublishSubject<[SectionOfCustomData]>()
-    private let _limitReached = PublishSubject<Void>()
+    // MARK: - DataSource
+    private var sections: [SectionOfCustomData] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -103,7 +82,6 @@ class SectionedCollectionView: UIView {
         
         self.setupCollectionView()
         self.setupView()
-        self.setupBindings()
     }
     
     func setupView() {
@@ -112,6 +90,11 @@ class SectionedCollectionView: UIView {
         self.registerHeaderCell()
         self.registerFooterCell()
         self.registerCollectionViewCell()
+    }
+    
+    func setDataSource(sections: [SectionOfCustomData]) {
+        self.sections = sections
+        self.collectionView.reloadData()
     }
     
     fileprivate func setupCollectionView(){
@@ -168,133 +151,58 @@ class SectionedCollectionView: UIView {
     }
     
     fileprivate func setupDataSource() {
-        self.dataSource = RxCollectionViewSectionedReloadDataSource<SectionOfCustomData>(configureCell: { (dataSource, collectionView, indexPath, item) in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.settings.viewCells.itemCollectionViewCellReuseIdentifier, for: indexPath) as! ItemCollectionViewCell
-            cell.configure(withValue: item)
-            return cell
-        })
-        
-        self.dataSource.configureSupplementaryView = {(dataSource, collectionView, kind, indexPath) -> UICollectionReusableView in
-            if (kind == UICollectionElementKindSectionHeader) {
-                let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: self.settings.viewCells.headerViewCellReuseIdentifier, for: indexPath) as! ItemCollectionViewCell
-                header.configure(withValue: dataSource[indexPath.section])
-                return header
-            } else {
-                let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: self.settings.viewCells.footerViewCellReuseIdentifier, for: indexPath) as! ItemCollectionViewCell
-                footer.configure(withValue: dataSource[indexPath.section])
-                return footer
-            }
-        }
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
-    fileprivate func setupBindings() {
-        _sections.asObservable()
-            .bind(to: sections)
-            .disposed(by: disposeBag)
-        
-        self.sections.asObservable()
-            .bind(to: self.collectionView.rx.items(dataSource: self.dataSource))
-            .disposed(by: disposeBag)
-        
-        collectionView.rx.itemSelected
-            .subscribe(onNext: { indexPath in
-                let selectedItemsCount = self.sections.value.compactMap({ sections -> [CustomData] in
-                    return sections.selectedItems().items
-                }).flatMap({ $0 }).count
-                
-                if (self.sections.value[indexPath.section].items[indexPath.row].selected || self.settings.data.selectedLimit == nil || selectedItemsCount < self.settings.data.selectedLimit!) {
-                    self.sections.value[indexPath.section].items[indexPath.row].selected = !self.sections.value[indexPath.section].items[indexPath.row].selected
-                } else {
-                    self._limitReached.asObserver().onNext(())
-                }
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    // MARK: - Public override variables
-    
-    var headerReferenceSize: CGSize {
-        
-        set {
-            let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-            collectionViewFlowLayout?.headerReferenceSize = newValue
-        }
-        
-        get {
-            let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-            return collectionViewFlowLayout?.headerReferenceSize ?? .zero
-        }
-        
-    }
-    
-    var footerReferenceSize: CGSize {
-        
-        set {
-            let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-            collectionViewFlowLayout?.footerReferenceSize = newValue
-        }
-        
-        get {
-            let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-            return collectionViewFlowLayout?.footerReferenceSize ?? .zero
-        }
-        
-    }
-    
-    var itemSize: CGSize {
-        
-        set {
-            let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-            collectionViewFlowLayout?.itemSize = newValue
-        }
-        
-        get {
-            let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-            return collectionViewFlowLayout?.itemSize ?? .zero
-        }
-    
-    }
-    
-    var minimumLineSpacing: CGFloat {
-        
-        set {
-            let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-            collectionViewFlowLayout?.minimumLineSpacing = newValue
-        }
-        
-        get {
-            let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-            return collectionViewFlowLayout?.minimumLineSpacing ?? 0
-        }
-        
-    }
-    
-    var minimumInteritemSpacing: CGFloat {
-        
-        set {
-            let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-            collectionViewFlowLayout?.minimumInteritemSpacing = newValue
-        }
-        
-        get {
-            let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-            return collectionViewFlowLayout?.minimumInteritemSpacing ?? 0
-        }
-        
-    }
-    
-    var sectionInset: UIEdgeInsets {
-        
-        set {
-            let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-            collectionViewFlowLayout?.sectionInset = newValue
-        }
-        
-        get {
-            let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-            return collectionViewFlowLayout?.sectionInset ?? .zero
-        }
-        
-    }
+}
 
+extension SectionedCollectionView: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedItemsCount = self.sections.compactMap({ sections -> [CustomData] in
+            return sections.selectedItems().items
+        }).flatMap({ $0 }).count
+        
+        if (self.sections[indexPath.section].items[indexPath.row].selected || self.settings.data.selectedLimit == nil || selectedItemsCount < self.settings.data.selectedLimit!) {
+            self.sections[indexPath.section].items[indexPath.row].selected = !self.sections[indexPath.section].items[indexPath.row].selected
+            self.delegate?.selectedItems(selected: self.sections.map({ section -> [CustomData] in
+                return section.selectedItems().items
+            }).flatMap({ $0 }))
+            collectionView.reloadItems(at: [indexPath])
+        } else {
+            self.delegate?.limitReached()
+        }
+    }
+    
+}
+
+extension SectionedCollectionView: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.sections[section].items.count
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return self.sections.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.settings.viewCells.itemCollectionViewCellReuseIdentifier, for: indexPath) as! ItemCollectionViewCell
+        cell.configure(withValue: self.sections[indexPath.section].items[indexPath.row])
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if (kind == UICollectionElementKindSectionHeader) {
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: self.settings.viewCells.headerViewCellReuseIdentifier, for: indexPath) as! ItemCollectionViewCell
+            header.configure(withValue: self.sections[indexPath.section])
+            return header
+        } else {
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: self.settings.viewCells.footerViewCellReuseIdentifier, for: indexPath) as! ItemCollectionViewCell
+            footer.configure(withValue: self.sections[indexPath.section])
+            return footer
+        }
+    }
+    
 }

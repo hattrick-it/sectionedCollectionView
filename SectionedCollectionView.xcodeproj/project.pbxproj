@@ -15,23 +15,18 @@
 		38526B4D20CAC11B00A460DF /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38526B4C20CAC11B00A460DF /* ItemCollectionViewCell.swift */; };
 		38526B5120CAEB9F00A460DF /* HeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38526B5020CAEB9F00A460DF /* HeaderViewCell.xib */; };
 		38526B5320CAEBBC00A460DF /* HeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38526B5220CAEBBC00A460DF /* HeaderViewCell.swift */; };
-		38526B5620CAF60000A460DF /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38526B5520CAF60000A460DF /* BaseCoordinator.swift */; };
-		38526B5820CAF63300A460DF /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38526B5720CAF63300A460DF /* AppCoordinator.swift */; };
 		38526B5B20CB15D100A460DF /* CustomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38526B5A20CB15D100A460DF /* CustomData.swift */; };
 		38526B5D20CEB51800A460DF /* SectionOfCustomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38526B5C20CEB51800A460DF /* SectionOfCustomData.swift */; };
 		38526B5F20CEB60900A460DF /* SectionedCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38526B5E20CEB60900A460DF /* SectionedCollectionView.swift */; };
-		38526B6320CEBFA900A460DF /* SectionedCollectionView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38526B6220CEBFA900A460DF /* SectionedCollectionView+Rx.swift */; };
 		38FD343A20C99D7B00F4B2EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD343920C99D7B00F4B2EB /* AppDelegate.swift */; };
 		38FD343C20C99D7B00F4B2EB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD343B20C99D7B00F4B2EB /* ViewController.swift */; };
 		38FD344120C99D8F00F4B2EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38FD344020C99D8F00F4B2EB /* Assets.xcassets */; };
 		38FD344420C99D8F00F4B2EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38FD344220C99D8F00F4B2EB /* LaunchScreen.storyboard */; };
 		38FD344E20C9C3B100F4B2EB /* SectionedCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38FD344D20C9C3B100F4B2EB /* SectionedCollectionViewController.xib */; };
 		38FD345020C9C3C900F4B2EB /* SectionedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FD344F20C9C3C900F4B2EB /* SectionedCollectionViewController.swift */; };
-		395CBD8E8A1EC9CAF995CA2F /* Pods_SectionedCollectionView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13F96F690D612363A184DF4 /* Pods_SectionedCollectionView.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1CFC2B9BFF07C132DEC1FE37 /* Pods-SectionedCollectionView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SectionedCollectionView.release.xcconfig"; path = "Pods/Target Support Files/Pods-SectionedCollectionView/Pods-SectionedCollectionView.release.xcconfig"; sourceTree = "<group>"; };
 		3815D45F20CF075A00F29A86 /* FooterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterViewCell.swift; sourceTree = "<group>"; };
 		3815D46120CF076B00F29A86 /* FooterViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FooterViewCell.xib; sourceTree = "<group>"; };
 		383D875D20D2D3E5005211C3 /* CustomItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomItemCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -40,12 +35,9 @@
 		38526B4C20CAC11B00A460DF /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		38526B5020CAEB9F00A460DF /* HeaderViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderViewCell.xib; sourceTree = "<group>"; };
 		38526B5220CAEBBC00A460DF /* HeaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewCell.swift; sourceTree = "<group>"; };
-		38526B5520CAF60000A460DF /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
-		38526B5720CAF63300A460DF /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		38526B5A20CB15D100A460DF /* CustomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomData.swift; sourceTree = "<group>"; };
 		38526B5C20CEB51800A460DF /* SectionOfCustomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionOfCustomData.swift; sourceTree = "<group>"; };
 		38526B5E20CEB60900A460DF /* SectionedCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionedCollectionView.swift; sourceTree = "<group>"; };
-		38526B6220CEBFA900A460DF /* SectionedCollectionView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SectionedCollectionView+Rx.swift"; sourceTree = "<group>"; };
 		38FD343620C99D7B00F4B2EB /* SectionedCollectionView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SectionedCollectionView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38FD343920C99D7B00F4B2EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		38FD343B20C99D7B00F4B2EB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -54,8 +46,6 @@
 		38FD344520C99D8F00F4B2EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38FD344D20C9C3B100F4B2EB /* SectionedCollectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionedCollectionViewController.xib; sourceTree = "<group>"; };
 		38FD344F20C9C3C900F4B2EB /* SectionedCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionedCollectionViewController.swift; sourceTree = "<group>"; };
-		C13F96F690D612363A184DF4 /* Pods_SectionedCollectionView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SectionedCollectionView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EAC90CFAFA45F8E99842A9AC /* Pods-SectionedCollectionView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SectionedCollectionView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SectionedCollectionView/Pods-SectionedCollectionView.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,22 +53,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				395CBD8E8A1EC9CAF995CA2F /* Pods_SectionedCollectionView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2DD3C8781E25CE9F66939EB3 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				EAC90CFAFA45F8E99842A9AC /* Pods-SectionedCollectionView.debug.xcconfig */,
-				1CFC2B9BFF07C132DEC1FE37 /* Pods-SectionedCollectionView.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		38526B4920CABCCF00A460DF /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -95,15 +75,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		38526B5420CAF5BF00A460DF /* Coordinators */ = {
-			isa = PBXGroup;
-			children = (
-				38526B5520CAF60000A460DF /* BaseCoordinator.swift */,
-				38526B5720CAF63300A460DF /* AppCoordinator.swift */,
-			);
-			path = Coordinators;
-			sourceTree = "<group>";
-		};
 		38526B5920CB159B00A460DF /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,29 +84,11 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		38526B6020CEBF7B00A460DF /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				38526B6120CEBF8700A460DF /* Extensions */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		38526B6120CEBF8700A460DF /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				38526B6220CEBFA900A460DF /* SectionedCollectionView+Rx.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		38FD342D20C99D7B00F4B2EB = {
 			isa = PBXGroup;
 			children = (
 				38FD343820C99D7B00F4B2EB /* SectionedCollectionView */,
 				38FD343720C99D7B00F4B2EB /* Products */,
-				2DD3C8781E25CE9F66939EB3 /* Pods */,
-				6E6DB36EEA0530ED73D3F53E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -150,9 +103,7 @@
 		38FD343820C99D7B00F4B2EB /* SectionedCollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				38526B6020CEBF7B00A460DF /* Shared */,
 				38526B5920CB159B00A460DF /* Model */,
-				38526B5420CAF5BF00A460DF /* Coordinators */,
 				38526B4920CABCCF00A460DF /* Views */,
 				38FD344B20C9C34F00F4B2EB /* ViewControllers */,
 				38FD343920C99D7B00F4B2EB /* AppDelegate.swift */,
@@ -173,14 +124,6 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		6E6DB36EEA0530ED73D3F53E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C13F96F690D612363A184DF4 /* Pods_SectionedCollectionView.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -188,11 +131,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 38FD344820C99D8F00F4B2EB /* Build configuration list for PBXNativeTarget "SectionedCollectionView" */;
 			buildPhases = (
-				ECA5925A87D72C5CA751C639 /* [CP] Check Pods Manifest.lock */,
 				38FD343220C99D7B00F4B2EB /* Sources */,
 				38FD343320C99D7B00F4B2EB /* Frameworks */,
 				38FD343420C99D7B00F4B2EB /* Resources */,
-				BF3ABA7C20C8852F4DE9A74F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -253,51 +194,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		BF3ABA7C20C8852F4DE9A74F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SectionedCollectionView/Pods-SectionedCollectionView-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SectionedCollectionView/Pods-SectionedCollectionView-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		ECA5925A87D72C5CA751C639 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SectionedCollectionView-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		38FD343220C99D7B00F4B2EB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -306,14 +202,11 @@
 				38526B5B20CB15D100A460DF /* CustomData.swift in Sources */,
 				38FD345020C9C3C900F4B2EB /* SectionedCollectionViewController.swift in Sources */,
 				38526B5D20CEB51800A460DF /* SectionOfCustomData.swift in Sources */,
-				38526B6320CEBFA900A460DF /* SectionedCollectionView+Rx.swift in Sources */,
 				3815D46020CF075A00F29A86 /* FooterViewCell.swift in Sources */,
 				383D875E20D2D3E5005211C3 /* CustomItemCollectionViewCell.swift in Sources */,
 				38FD343C20C99D7B00F4B2EB /* ViewController.swift in Sources */,
 				38526B5320CAEBBC00A460DF /* HeaderViewCell.swift in Sources */,
 				38526B5F20CEB60900A460DF /* SectionedCollectionView.swift in Sources */,
-				38526B5820CAF63300A460DF /* AppCoordinator.swift in Sources */,
-				38526B5620CAF60000A460DF /* BaseCoordinator.swift in Sources */,
 				38526B4D20CAC11B00A460DF /* ItemCollectionViewCell.swift in Sources */,
 				38FD343A20C99D7B00F4B2EB /* AppDelegate.swift in Sources */,
 			);
@@ -449,17 +342,13 @@
 		};
 		38FD344920C99D8F00F4B2EB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EAC90CFAFA45F8E99842A9AC /* Pods-SectionedCollectionView.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S84RM8A475;
 				INFOPLIST_FILE = SectionedCollectionView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = hattrick.SectionedCollectionView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -469,17 +358,13 @@
 		};
 		38FD344A20C99D8F00F4B2EB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1CFC2B9BFF07C132DEC1FE37 /* Pods-SectionedCollectionView.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S84RM8A475;
 				INFOPLIST_FILE = SectionedCollectionView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = hattrick.SectionedCollectionView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
