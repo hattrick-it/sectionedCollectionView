@@ -7,14 +7,13 @@
 //
 
 import Foundation
-import RxDataSources
 
 struct SectionOfCustomData {
     var header: String
     var items: [Item]
 }
 
-extension SectionOfCustomData: SectionModelType {
+extension SectionOfCustomData {
     typealias Item = CustomData
     
     init(original: SectionOfCustomData, items: [Item]) {

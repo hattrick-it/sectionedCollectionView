@@ -12,13 +12,16 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var appCoordinator: AppCoordinator?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
-        appCoordinator = AppCoordinator(window: window!)
-        _ = appCoordinator?.start()
+        let viewController = SectionedCollectionViewController()
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.isNavigationBarHidden = false
+        
+        window!.rootViewController = navigationController
+        window!.makeKeyAndVisible()
         
         return true
     }

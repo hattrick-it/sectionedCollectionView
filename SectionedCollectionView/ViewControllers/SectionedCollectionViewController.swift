@@ -8,13 +8,8 @@
 
 import Foundation
 import UIKit
-import RxSwift
-import RxCocoa
-import RxDataSources
 
 class SectionedCollectionViewController: UIViewController {
-    
-    let disposeBag = DisposeBag()
     
     @IBOutlet weak var sectionedCollectionView: SectionedCollectionView!
     
@@ -37,6 +32,7 @@ class SectionedCollectionViewController: UIViewController {
         sectionedCollectionView.settings.viewCells.headerViewCellReuseIdentifier = HeaderViewCell.cellReuseIdentifier
         sectionedCollectionView.settings.viewCells.footerViewCellNibName = FooterViewCell.nibName
         sectionedCollectionView.settings.viewCells.footerViewCellReuseIdentifier = FooterViewCell.cellReuseIdentifier
+        sectionedCollectionView.settings.data.selectedLimit = 5
         sectionedCollectionView.setupView()
         
         let sections = [
@@ -45,23 +41,21 @@ class SectionedCollectionViewController: UIViewController {
             SectionOfCustomData(header: "Back of house", items: [CustomData(name: "Prepping", selected: false), CustomData(name: "Hot line cook", selected: false), CustomData(name: "Pastry", selected: false), CustomData(name: "Baking", selected: false), CustomData(name: "Sushi", selected: false), CustomData(name: "Dishwashing", selected: false)])
         ]
         
-        Observable.just(sections)
-            .bind(to: sectionedCollectionView.rx.items)
-            .disposed(by: disposeBag)
+        sectionedCollectionView.setDataSource(sections: sections)
+        sectionedCollectionView.delegate = self
         
-        sectionedCollectionView.rx.selectedItems
-            .subscribe(onNext: { sections in
-                print(sections)
-            })
-            .disposed(by: disposeBag)
-        
-        sectionedCollectionView.rx.limitReached
-            .subscribe(onNext: { _ in
-                print("Limit Reached")
-            })
-            .disposed(by: disposeBag)
     }
     
+}
+
+extension SectionedCollectionViewController: SectionedCollectionViewDelegate {
     
+    func selectedItems(selected: [CustomData]) {
+        print(selected)
+    }
+    
+    func limitReached() {
+        print("Limit Reached")
+    }
     
 }
